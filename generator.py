@@ -43,9 +43,7 @@ class CodeGenerator:
         return one + two + three + four
 
     def assign(self, x, z):
-        if x[0] == "'" and x[-1] == "'":
-            x = x[1:-2]
-        elif x == "True":
+        if x == "True":
             x = 1
         elif x == "False":
             x = 0
@@ -174,6 +172,14 @@ class CodeGenerator:
                     
                     condition = left_right_split[0].replace("iffalse ","").split(" ")
                     
+                    if condition[-1][-1] == "'":
+                        while condition[-2][0] != "'":
+                            str_tok = condition.pop(-1)
+                            condition[-1] += " " + str_tok
+                            
+                        str_tok = condition.pop(-1)
+                        condition[-1] += " " + str_tok
+                    
                     if len(condition) > 1:
                         first_value = condition[0]
                         second_value = condition[1]
@@ -195,6 +201,14 @@ class CodeGenerator:
                     jump_line = left_right_split[1]
                     
                     condition = left_right_split[0].replace("if ","").split(" ")
+                    
+                    if condition[-1][-1] == "'":
+                        while condition[-2][0] != "'":
+                            str_tok = condition.pop(-1)
+                            condition[-1] += " " + str_tok
+                            
+                        str_tok = condition.pop(-1)
+                        condition[-1] += " " + str_tok
                     
                     if len(condition) > 1:
                         first_value = condition[0]
@@ -222,7 +236,7 @@ class CodeGenerator:
                 elif "=" in code:
                     left_right_split = code.split(" = ")
                     right_array = left_right_split[1]
-    
+                    
                     statement_array = right_array.split(' ')
                     assigned = left_right_split[0]
                     if not self.isReserved(assigned) and self.containsOperator(right_array):
@@ -277,8 +291,10 @@ class CodeGenerator:
                 
                 file.write(str(i)+":" + self.target_code[i] + "\n")
                 
-                print(i, ":", self.target_code[i])       
-
+    def print_code(self):
+        
+        for i in self.target_code.keys():
+            print(str(i) +":", self.target_code[i])
 
 class Block:
     
@@ -296,12 +312,4 @@ class Block:
                 self.lines.append(line)
 
 
-file = open("C:/Users/Arjun/Desktop/Arjun Files/School/Fifth Year/" +
-            "Compiling/Compiler/Intermediate/inter 5.txt", 
-            encoding="utf-8")
-code = file.read()
-file.close()
-generator = CodeGenerator(code)
-generator.evaluate()
-generator.compile_code()
 
