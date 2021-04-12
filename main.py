@@ -19,6 +19,9 @@ lex = Lexer(file)
 parse = Parser(lex)
 parse.program()
 
+with open("Intermediate Code.txt", "w", encoding="utf-8") as file:
+    file.write(Node.intermediate_code)
+
 print("\n")
 print("------------------------Lexer Tokens------------------------")
 parse.output_token_stream()
