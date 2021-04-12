@@ -12,6 +12,7 @@ class Node:
     
     lexline = 0
     labels = 0
+    intermediate_code = ""
     
     def __init__(self):
         self.lexline = lexer.line
@@ -28,11 +29,11 @@ class Node:
         
         #print("Node emitlabel. i =", i, )
         
-        print("L" + str(i) + ":", end="")
+        Node.intermediate_code += "L" + str(i) + ":"
         
     def emit(self, s):
         #print("Node emit. s =", s)
-        print("\t" + s)
+        Node.intermediate_code += "\t" + s + "\n"
         
 class Expr(Node):
     
