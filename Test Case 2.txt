@@ -1,0 +1,7 @@
+boo i: True;
+int j: 2;
+Cond <<~(i == True)>>{
+j: j + 5;
+} |{
+j: j - 2;
+}

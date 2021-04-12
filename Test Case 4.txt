@@ -1,0 +1,7 @@
+boo findMidpoint: True;
+dec total: 20.5;
+dec avg: 0.0;
+boo check: findMidpoint v total >10;
+Cond <<check >>{
+avg: total/2;
+}

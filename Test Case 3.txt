@@ -1,0 +1,7 @@
+str welcome: "hey world";
+boo i: False;
+Cond <<welcome == "hey world">>{
+i: True;
+} |{
+i: False;
+}
